@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ljmurga Barbershop</title>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="images/ljmurga.png" alt="Ljmurga Barbershop Logo" class="logo-img">
+            Ljmurga Barbershop
+        </div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="dashboard.html">Cliente</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="admin-login.html">Admin</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <section id="inicio" class="hero">
+        <h1>Ljmurga Barbershop</h1>
+        <p>Estilo y profesionalismo en cada corte</p>
+        <a href="#contacto" class="cta-button">Reservar Cita</a>
+    </section>
+
+    <section id="servicios" class="services">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-cut"></i>
+                <h3>Corte de Cabello Profesional</h3>
+                <p class="description">Corte personalizado según tu estilo y preferencias</p>
+                <div class="price">$5.000</div>
+                <div class="duration">
+                    <i class="fas fa-clock"></i>
+                    Duración aproximada: 40 minutos
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact">
+        <h2>Contacto</h2>
+        <div class="contact-info">
+            <div>
+                <i class="fas fa-phone"></i>
+                <a href="https://wa.me/56947119328" target="_blank" class="whatsapp-link">
+                    <i class="fab fa-whatsapp"></i>
+                    +569 47119328
+                </a>
+            </div>
+            <div>
+                <i class="fas fa-map-marker-alt"></i>
+                <p>
+                    <a href="https://maps.google.com/?q=Sergio+valdovinos+01640+Santiago+Chile" target="_blank" class="address-link">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Sergio valdovinos 01640
+                    </a>
+                </p>
+            </div>
+            <div>
+                <i class="fas fa-clock"></i>
+                <p>Lun-Sab: 12:00 - 17:00</p>
+            </div>
+        </div>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d453.7208585855968!2d-70.7073447599816!3d-33.430127990334846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c40da51c4a8d%3A0xc39225c784d496d1!2sSergio%20Valdovinos%201640!5e1!3m2!1ses-419!2scl!4v1737585474632!5m2!1ses-419!2scl" 
+                    width="400" 
+                    height="300" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Ljmurga Barbershop. Todos los derechos reservados.</p>
+    </footer>
+
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeAuth">&times;</span>
+            <div id="authTabs">
+                <button class="tab-btn active" data-tab="login">Iniciar Sesión</button>
+                <button class="tab-btn" data-tab="register">Registrarse</button>
+            </div>
+            
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Iniciar Sesión</button>
+            </form>
+
+            <form id="registerForm" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label for="registerName">Nombre completo:</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Número de WhatsApp:</label>
+                    <div class="phone-input-container">
+                        <span class="phone-prefix">+56</span>
+                        <input type="tel" 
+                               id="registerPhone" 
+                               class="phone-input"
+                               pattern="9[0-9]{8}"
+                               required
+                               placeholder="912345678"
+                               maxlength="9"
+                               title="Ingresa los 9 dígitos de tu número (comenzando con 9)">
+                    </div>
+                    <small style="color: #666; display: block; margin-top: 4px;">
+                        Ejemplo: 912345678 (solo los 9 dígitos después del +56)
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña:</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

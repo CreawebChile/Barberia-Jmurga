@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Ljmurga Barbershop</title>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-login-page">
+    <div class="admin-login-container">
+        <div class="admin-login-card">
+            <div class="admin-login-header">
+                <img src="images/ljmurga.png" alt="Ljmurga Barbershop Logo" class="login-logo">
+                <i class="fas fa-user-shield"></i>
+                <h1>Panel Administrativo</h1>
+                <p>Ljmurga Barbershop</p>
+            </div>
+            <form id="adminLoginForm" class="admin-login-form">
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Contraseña
+                    </label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                </button>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="admin-login.js"></script>
+</body>
+</html>

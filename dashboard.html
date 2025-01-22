@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Cliente - Ljmurga Barbershop</title>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-brand">
+                <img src="images/ljmurga.png" alt="Ljmurga Barbershop Logo" class="header-logo">
+                Ljmurga Barbershop
+            </div>
+            <div class="user-controls">
+                <span id="userName"></span>
+                <button id="logoutBtn" class="btn btn-primary">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar Sesión
+                </button>
+            </div>
+        </header>
+
+        <aside class="app-sidebar">
+            <div class="user-profile">
+                <i class="fas fa-user-circle fa-3x"></i>
+                <h3 id="sidebarUserName"></h3>
+                <p id="sidebarUserEmail"></p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#reservar" class="active">
+                    <i class="fas fa-calendar-plus"></i>
+                    Nueva Reserva
+                </a>
+                <a href="#historial">
+                    <i class="fas fa-history"></i>
+                    Mis Reservas
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="booking-section">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <h2>Selecciona una fecha</h2>
+                        <div class="calendar-controls">
+                            <button id="prevMonth" class="btn">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h3 id="currentMonth"></h3>
+                            <button id="nextMonth" class="btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="calendar" class="calendar-grid"></div>
+                </div>
+
+                <div class="booking-panel">
+                    <h3>Detalles de la Reserva</h3>
+                    <div class="booking-info">
+                        <p>Servicio: Corte de Cabello</p>
+                        <p>Precio: $5.000</p>
+                        <p>Duración: 40 minutos</p>
+                    </div>
+                    <div class="time-slots" id="timeSlots"></div>
+                    <form id="bookingForm"> <!-- Añadir form con id correcto -->
+                        <div class="selected-datetime">
+                            <p>Fecha: <span id="selectedDate">-</span></p>
+                            <p>Hora: <span id="selectedTime">-</span></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check"></i> Confirmar Reserva
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>

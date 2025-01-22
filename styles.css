@@ -1,0 +1,405 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+nav {
+    background: #333;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    padding: 0 1rem;
+}
+
+.hero {
+    height: 60vh;  /* Cambiado de 100vh a 60vh */
+    padding-top: 80px;  /* Agregado para compensar la navbar fija */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/fondo.png') center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 80px 1rem 1rem;  /* Modificado el padding */
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.cta-button {
+    background: #f4511e;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+.services {
+    padding: 4rem 2rem;
+    background: #f9f9f9;
+}
+
+.services h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.services h2:after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #f4511e;
+    margin: 1rem auto;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    text-align: center;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card i {
+    font-size: 3rem;
+    color: #f4511e;
+    margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.service-card .price {
+    font-size: 2rem;
+    color: #f4511e;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.service-card .duration {
+    color: #666;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.service-card .duration i {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.contact {
+    padding: 4rem 2rem;
+    background: #333;
+    color: white;
+    text-align: center;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.contact-info i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.address-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.address-link:hover {
+    color: #f4511e;
+}
+
+.address-link i {
+    margin-right: 5px;
+    font-size: 1rem;
+}
+
+.whatsapp-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.whatsapp-link:hover {
+    color: #25D366;
+}
+
+.map-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto 0;
+}
+
+.map-container iframe {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        right: -100%;
+        top: 70px;
+        background: #333;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links li {
+        padding: 1rem 0;
+    }
+
+    .burger {
+        display: block;
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Estilos para el campo de teléfono */
+.form-group input[type="tel"] {
+    padding-left: 10px;
+    font-family: monospace; /* Mejor alineación de números */
+}
+
+.form-group input[type="tel"]::placeholder {
+    color: #999;
+}
+
+.form-group input[type="tel"]:focus {
+    outline: none;
+    border-color: #f4511e;
+}
+
+.phone-input-container {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.phone-prefix {
+    background: #f5f5f5;
+    padding: 8px 12px;
+    color: #666;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #ddd;
+}
+
+.phone-input {
+    flex: 1;
+    border: none !important;
+    padding: 8px !important;
+    width: 100%;
+}
+
+.phone-input:focus {
+    outline: none;
+}
+
+.phone-input-container:focus-within {
+    border-color: #f4511e;
+}
+
+.submit-btn {
+    background: #f4511e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background: #e04018;
+}
+
+#authTabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+}
+
+.tab-btn.active {
+    color: #f4511e;
+    border-bottom: 2px solid #f4511e;
+}
+
+.auth-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.error-message {
+    color: #f44336;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.success-message {
+    color: #4CAF50;
+    margin-top: 10px;
+    text-align: center;
+}

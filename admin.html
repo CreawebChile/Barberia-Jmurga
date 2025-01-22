@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador - Barbería LJMurga</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="header-brand">Panel Administrador - LJMurga</div>
+            <div class="admin-controls">
+                <span id="adminName"></span>
+                <button id="logoutBtn" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </header>
+
+        <aside class="admin-sidebar">
+            <nav class="admin-nav">
+                <a href="#reservas" class="active">
+                    <i class="fas fa-calendar-check"></i>
+                    Reservas Pendientes
+                </a>
+                <a href="#confirmadas">
+                    <i class="fas fa-check-circle"></i>
+                    Horas Confirmadas
+                </a>
+                <a href="#clientes">
+                    <i class="fas fa-users"></i>
+                    Clientes
+                </a>
+            </nav>
+        </aside>
+
+        <main class="admin-content">
+            <section id="reservas" class="appointments-section">
+                <h2>Reservas Pendientes</h2>
+                <div class="appointments-grid" id="pendingAppointments">
+                    <!-- Las reservas se cargarán dinámicamente aquí -->
+                </div>
+            </section>
+
+            <section id="confirmadas" class="appointments-section" style="display: none;">
+                <h2>Horas Confirmadas</h2>
+                <div class="appointments-grid" id="confirmedAppointments">
+                    <!-- Las citas confirmadas se cargarán aquí -->
+                </div>
+            </section>
+
+            <section id="clientes" class="clients-section" style="display: none;">
+                <h2>Clientes Registrados</h2>
+                <div class="clients-grid" id="registeredClients">
+                    <!-- Los clientes se cargarán dinámicamente aquí -->
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <script type="module" src="admin.js"></script>
+</body>
+</html>

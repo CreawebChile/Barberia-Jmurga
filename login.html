@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Ljmurga Barbershop</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <img src="images/ljmurga.png" alt="Ljmurga Barbershop Logo" class="login-logo">
+            <h2>Bienvenido a Ljmurga Barbershop</h2>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Iniciar Sesión</button>
+                <button class="tab-btn" data-tab="register">Registrarse</button>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <input type="email" id="loginEmail" required placeholder="Correo electrónico">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" required placeholder="Contraseña">
+                </div>
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </form>
+
+            <form id="registerForm" class="auth-form hidden">
+                <div class="form-group">
+                    <input type="text" id="registerName" required placeholder="Nombre completo">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="registerEmail" required placeholder="Correo electrónico">
+                </div>
+                <div class="form-group phone-input-group">
+                    <div class="phone-input-container">
+                        <span class="phone-prefix">+56</span>
+                        <input type="tel" 
+                               id="registerPhone" 
+                               required 
+                               placeholder="912345678"
+                               pattern="9[0-9]{8}"
+                               maxlength="9"
+                               class="phone-input">
+                    </div>
+                    <small class="phone-hint">Ingresa solo los 9 dígitos después del +56</small>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="registerPassword" required placeholder="Contraseña">
+                </div>
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="login.js"></script>
+</body>
+</html>
