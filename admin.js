@@ -539,41 +539,94 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
     }
 });
 
-// Agregar manejadores para la navegación
-document.addEventListener('DOMContentLoaded', async () => {
-    await initializeNotifications();
-    setupNavigation();
-});
-
+// Mejorar la navegación para que funcione tanto en local como en producción
 function setupNavigation() {
+    // Asegurar que la navegación se inicialice correctamente
     const navLinks = document.querySelectorAll('.admin-nav a');
+    
+    // Mostrar la sección activa al cargar
+    const currentHash = window.location.hash || '#reservas';
+    showSection(currentHash.substring(1));
+    
+    // Actualizar link activo
     navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentHash) {
+            link.classList.add('active');
+        }
+        
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const sectionId = link.getAttribute('href').substring(1);
+            
+            // Actualizar URL sin recargar
+            window.history.pushState(null, '', `#${sectionId}`);
+            
+            // Mostrar sección y actualizar navegación
             showSection(sectionId);
             updateActiveLink(link);
         });
     });
+
+    // Manejar navegación con botones del navegador
+    window.addEventListener('popstate', () => {
+        const sectionId = window.location.hash.substring(1) || 'reservas';
+        showSection(sectionId);
+        updateActiveLink(document.querySelector(`.admin-nav a[href="#${sectionId}"]`));
+    });
 }
 
 function showSection(sectionId) {
+    console.log('Mostrando sección:', sectionId); // Debug
+
+    // Ocultar todas las secciones primero
     const sections = document.querySelectorAll('main section');
     sections.forEach(section => {
-        section.style.display = section.id === sectionId ? 'block' : 'none';
+        section.style.display = 'none';
     });
 
-    if (sectionId === 'clientes') {
-        loadClients();
+    // Mostrar la sección solicitada
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.style.display = 'block';
+        
+        // Cargar datos específicos de la sección
+        switch(sectionId) {
+            case 'clientes':
+                loadClients();
+                break;
+            case 'confirmadas':
+                // Asegurar que las citas confirmadas se carguen
+                const confirmedQuery = query(
+                    collection(db, "appointments"),
+                    where("status", "==", "confirmed")
+                );
+                onSnapshot(confirmedQuery, handleConfirmedSnapshot);
+                break;
+            case 'reservas':
+                // Asegurar que las citas pendientes se carguen
+                const pendingQuery = query(
+                    collection(db, "appointments"),
+                    where("status", "==", "pending")
+                );
+                onSnapshot(pendingQuery, handlePendingSnapshot);
+                break;
+        }
+    } else {
+        console.error('Sección no encontrada:', sectionId);
     }
 }
 
-function updateActiveLink(activeLink) {
-    document.querySelectorAll('.admin-nav a').forEach(link => {
-        link.classList.remove('active');
-    });
-    activeLink.classList.add('active');
-}
+// Actualizar inicialización de la aplicación
+document.addEventListener('DOMContentLoaded', async () => {
+    await initializeNotifications();
+    
+    // Inicializar navegación después de que el DOM esté listo
+    setupNavigation();
+    
+    // Mostrar sección inicial
+    const initialSection = window.location.hash.substring(1) || 'reservas';
+    showSection(initialSection);
+});
 
 // Función para cargar y mostrar clientes
 async function loadClients() {
