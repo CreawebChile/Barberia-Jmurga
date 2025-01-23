@@ -246,15 +246,24 @@ if (bookingForm) {
         }
         
         try {
-            const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
-            const userData = userDoc.data();
+            // Get current user
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Por favor inicie sesión nuevamente');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Get user data with safety checks
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            const userData = userDoc.exists() ? userDoc.data() : {};
             
             const now = new Date();
             const appointmentData = {
-                userId: auth.currentUser.uid,
-                userName: userData.name || 'Usuario',
-                userEmail: userData.email,
-                userPhone: userData.phone || null,
+                userId: user.uid,
+                userName: userData?.name || user.displayName || 'Usuario sin nombre',
+                userEmail: userData?.email || user.email,
+                userPhone: userData?.phone || null,
                 service: "corte",
                 serviceName: BUSINESS_HOURS.serviceName,
                 price: BUSINESS_HOURS.servicePrice,
