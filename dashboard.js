@@ -240,24 +240,40 @@ if (bookingForm) {
     bookingForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        if (!selectedDate || !selectedTime) {
-            alert('Por favor seleccione fecha y hora');
-            return;
-        }
+        // Disable submit button to prevent double submission
+        const submitButton = bookingForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
         
         try {
-            // Get current user
-            const user = auth.currentUser;
-            if (!user) {
-                alert('Por favor inicie sesión nuevamente');
-                window.location.href = 'login.html';
-                return;
+            // Validate date and time
+            if (!selectedDate || !selectedTime) {
+                throw new Error('Fecha y hora son requeridos');
             }
 
-            // Get user data with safety checks
+            // Get and validate current user
+            const user = auth.currentUser;
+            if (!user) {
+                throw new Error('Usuario no autenticado');
+            }
+
+            // Get user data with validation
             const userDoc = await getDoc(doc(db, "users", user.uid));
-            const userData = userDoc.exists() ? userDoc.data() : {};
-            
+            if (!userDoc.exists()) {
+                throw new Error('Datos de usuario no encontrados');
+            }
+
+            const userData = userDoc.data();
+            if (!userData?.email) {
+                throw new Error('Datos de usuario incompletos');
+            }
+
+            // Validate availability again before submitting
+            const isAvailable = await checkTimeSlotAvailability(selectedDate, selectedTime);
+            if (!isAvailable) {
+                throw new Error('El horario ya no está disponible');
+            }
+
             const now = new Date();
             const appointmentData = {
                 userId: user.uid,
@@ -276,16 +292,16 @@ if (bookingForm) {
                 lastUpdate: now.getTime()
             };
 
-            const isAvailable = await checkTimeSlotAvailability(selectedDate, selectedTime);
-            if (!isAvailable) {
-                alert("Lo sentimos, este horario ya está reservado. Por favor seleccione otro.");
-                return;
+            // Add appointment to Firestore
+            const docRef = await addDoc(collection(db, "appointments"), appointmentData);
+            
+            if (!docRef.id) {
+                throw new Error('Error al crear la cita');
             }
 
-            await addDoc(collection(db, "appointments"), appointmentData);
-            alert("Cita agendada exitosamente!");
+            alert("¡Cita agendada exitosamente!");
             
-            // Limpiar selección
+            // Reset form
             selectedDate = null;
             selectedTime = null;
             document.getElementById('selectedDate').textContent = '-';
@@ -293,8 +309,12 @@ if (bookingForm) {
             renderCalendar();
             
         } catch (error) {
-            console.error("Error al agendar la cita:", error);
-            alert("Error al agendar la cita. Por favor intente nuevamente.");
+            console.error("Error detallado:", error);
+            alert(error.message || "Error al agendar la cita. Por favor intente nuevamente.");
+        } finally {
+            // Re-enable submit button
+            submitButton.disabled = false;
+            submitButton.innerHTML = '<i class="fas fa-check"></i> Confirmar Reserva';
         }
     });
 }
